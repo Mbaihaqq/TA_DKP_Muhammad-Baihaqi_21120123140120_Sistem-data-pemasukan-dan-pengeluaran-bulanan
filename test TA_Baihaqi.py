@@ -5,39 +5,42 @@ class SistemDataBulanan:
         self.root = root
         self.root.title("Sistem Data Pendapatan dan Pengeluaran Bulanan")
         self.root.geometry("400x450")
+        self.root.configure(background='black')  
 
         self.kategori_pengeluaran = ["Sewa", "Utilitas", "Makanan", "Transportasi", "Hiburan", "Lainnya"]
 
-        self.pendapatan_label = tk.Label(root, text="Pendapatan Bulanan:")
+        self.pendapatan_label = tk.Label(root, text="Pendapatan Bulanan:", fg='red', bg='black')  
         self.pendapatan_label.pack()
-        self.pendapatan_entry = tk.Entry(root)
+        self.pendapatan_entry = tk.Entry(root, fg='red', bg='black') 
         self.pendapatan_entry.pack()
 
-        self.pengeluaran_label = tk.Label(root, text="Pengeluaran:")
+        self.pengeluaran_label = tk.Label(root, text="Pengeluaran:", fg='red', bg='black')  
         self.pengeluaran_label.pack()
-        self.pengeluaran_frame = tk.Frame(root)
+        self.pengeluaran_frame = tk.Frame(root, bg='black')  
         self.pengeluaran_frame.pack()
 
         self.entries = []
         for i, kategori in enumerate(self.kategori_pengeluaran):
-            tk.Label(self.pengeluaran_frame, text=kategori).grid(row=i, column=0)
-            entry = tk.Entry(self.pengeluaran_frame, width=10)
+            tk.Label(self.pengeluaran_frame, text=kategori, fg='red', bg='black').grid(row=i, column=0)  
+            entry = tk.Entry(self.pengeluaran_frame, width=10, fg='red', bg='black')  
             entry.grid(row=i, column=1)
             self.entries.append(entry)
 
-        self.hitung_button = tk.Button(root, text="Hitung", command=self.hitung)
+        tk.Label(root, text="", fg='black', bg='black').pack()
+
+        self.hitung_button = tk.Button(root, text="Hitung", command=self.hitung, fg='red', bg='black')  
         self.hitung_button.pack()
 
-        self.hasil_label = tk.Label(root, text="")
+        self.hasil_label = tk.Label(root, text="", fg='red', bg='black')  
         self.hasil_label.pack()
 
-        self.data_pengeluaran_label = tk.Label(root, text="Data Pengeluaran:")
+        self.data_pengeluaran_label = tk.Label(root, text="Data Pengeluaran:", fg='red', bg='black')  
         self.data_pengeluaran_label.pack()
-        self.data_pengeluaran_text = tk.Text(root, height=10, width=40)
+        self.data_pengeluaran_text = tk.Text(root, height=10, width=40, fg='red', bg='black')  
         self.data_pengeluaran_text.pack()
 
     def hitung(self):
-        self.hasil_label.config(text="", fg="black")
+        self.hasil_label.config(text="", fg="red")
         self.data_pengeluaran_text.delete(1.0, tk.END)
 
         try:
@@ -62,7 +65,7 @@ class SistemDataBulanan:
                 entry.insert(0, "0")
 
         if total_pengeluaran > pendapatan:
-            self.hasil_label.config(text="Total pengeluaran tidak boleh lebih besar dari pendapatan!", fg="red")
+            self.hasil_label.config(text="Total pengeluaran lebih besar dari pendapatan!", fg="red")
             return
 
         saldo_tersisa = pendapatan - total_pengeluaran
